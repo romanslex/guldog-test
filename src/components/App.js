@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 import Nav from '../containers/Nav';
 import Main from '../containers/Main';
+import '../App.css';
 
 class App extends Component {
     render() {
