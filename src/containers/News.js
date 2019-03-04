@@ -40,8 +40,8 @@ class News extends Component {
 
 const mapStateToProps = state => ({
     news: search => state.news.filter(i =>
-        i.header.toLowerCase().startsWith(search.toLowerCase()) ||
-        i.text.toLowerCase().startsWith(search.toLowerCase())
+        ~i.header.toLowerCase().indexOf(search.toLowerCase()) ||
+        ~i.text.toLowerCase().indexOf(search.toLowerCase())
     )
 });
 
