@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 import Nav from '../containers/Nav';
 import Main from '../containers/Main';
+import Login from '../containers/Login';
 import '../App.css';
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
                         <div className="row justify-content-center">
                             <div className="col-md-8">
                                 <Route path='/main' component={Main}/>
+                                <Route path='/login' component={Login}/>
                             </div>
                         </div>
                     </div>
