@@ -26,11 +26,14 @@ class Login extends Component {
 
     login(e) {
         e.preventDefault();
-        if(this.state.login === 'user' && this.state.pass === 'password')
+        if (this.state.login === 'user' && this.state.pass === 'password')
             this.props.dispatchLogin(this.state.login);
     }
 
     render() {
+        if (this.props.user.isLoggedIn)
+            return <Redirect to='/main'/>;
+
         return (
             <form>
                 <div className="form-group">
