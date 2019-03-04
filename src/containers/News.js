@@ -8,14 +8,24 @@ class News extends Component {
             search: ''
         };
         this.searchChange = this.searchChange.bind(this);
+        this.filteredNews = this.filteredNews.bind(this);
     }
 
     searchChange(e) {
         this.setState({search: e.target.value});
     }
 
+    filteredNews() {
+        let search = this.state.search;
+        return this.props.news.filter(i =>
+            ~i.header.toLowerCase().indexOf(search.toLowerCase()) ||
+            ~i.text.toLowerCase().indexOf(search.toLowerCase())
+        );
+    }
+
     render() {
-        let news = this.props.news(this.state.search);
+        let news = this.filteredNews();
+
         return (
             <div>
                 <input value={this.state.search} onChange={this.searchChange} type="text"/>
@@ -39,10 +49,7 @@ class News extends Component {
 
 
 const mapStateToProps = state => ({
-    news: search => state.news.filter(i =>
-        ~i.header.toLowerCase().indexOf(search.toLowerCase()) ||
-        ~i.text.toLowerCase().indexOf(search.toLowerCase())
-    )
+    news: state.news
 });
 
 export default connect(mapStateToProps)(News)
