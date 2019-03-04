@@ -2,6 +2,8 @@ const user = (state, action) => {
     if (typeof state === 'undefined')
         return initialState;
     switch (action.type) {
+        case 'LOGOUT':
+            return Object({isLoggedIn: false}, state);
         case 'LOGIN':
             let newState = Object.assign({}, state);
             newState.name = action.name;
