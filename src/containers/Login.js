@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import {login} from "../actions";
+import {authService} from "../services/auth-service";
 
 class Login extends Component {
     constructor(props) {
@@ -29,10 +30,11 @@ class Login extends Component {
         e.preventDefault();
         this.setState({isErrorBlockVisible: false});
 
-        if (this.state.login === 'user' && this.state.pass === 'password')
-            this.props.dispatchLogin(this.state.login);
-        else
-            this.setState({isErrorBlockVisible: true});
+        authService(this.state.login, this.state.pass)
+            .then(() => this.props.dispatchLogin(this.state.login))
+            .catch(() => {
+                this.setState({isErrorBlockVisible: true});
+            });
     }
 
     showErrorBlock() {
