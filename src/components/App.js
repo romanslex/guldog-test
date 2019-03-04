@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import Nav from '../containers/Nav';
 import Main from '../containers/Main';
 import Login from '../containers/Login';
@@ -15,9 +15,12 @@ class App extends Component {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-md-8">
-                                <Route path='/main' component={Main}/>
-                                <Route path='/login' component={Login}/>
-                                <Route path='/news' component={News}/>
+                                <Switch>
+                                    <Route path='/main' component={Main}/>
+                                    <Route path='/login' component={Login}/>
+                                    <Route path='/news' component={News}/>
+                                    <Redirect to='/main'/>
+                                </Switch>
                             </div>
                         </div>
                     </div>
