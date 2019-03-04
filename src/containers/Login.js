@@ -7,13 +7,14 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            login: 'user',
-            pass: 'password',
-            showErrors: false
+            login: '',
+            pass: '',
+            isErrorBlockVisible: false
         };
         this.loginChange = this.loginChange.bind(this);
         this.passChange = this.passChange.bind(this);
         this.login = this.login.bind(this);
+        this.showErrorBlock = this.showErrorBlock.bind(this);
     }
 
     loginChange(e) {
@@ -26,8 +27,22 @@ class Login extends Component {
 
     login(e) {
         e.preventDefault();
+        this.setState({isErrorBlockVisible: false});
+
         if (this.state.login === 'user' && this.state.pass === 'password')
             this.props.dispatchLogin(this.state.login);
+        else
+            this.setState({isErrorBlockVisible: true});
+    }
+
+    showErrorBlock() {
+        if(!this.state.isErrorBlockVisible)
+            return;
+        return (
+            <div className="alert alert-danger">
+                <div>Не правильные логин или пароль</div>
+            </div>
+        );
     }
 
     render() {
@@ -36,6 +51,7 @@ class Login extends Component {
 
         return (
             <form>
+                {this.showErrorBlock()}
                 <div className="form-group">
                     <label htmlFor="login">Login</label>
                     <input value={this.state.login} onChange={this.loginChange} type="text" className="form-control"
