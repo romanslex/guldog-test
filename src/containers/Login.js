@@ -10,7 +10,8 @@ class Login extends Component {
         this.state = {
             login: 'user',
             pass: 'password',
-            isErrorBlockVisible: false
+            isErrorBlockVisible: false,
+            isBtnLocked: false
         };
         this.loginChange = this.loginChange.bind(this);
         this.passChange = this.passChange.bind(this);
@@ -29,11 +30,13 @@ class Login extends Component {
     login(e) {
         e.preventDefault();
         this.setState({isErrorBlockVisible: false});
+        this.setState({isBtnLocked: true});
 
         authService(this.state.login, this.state.pass)
             .then(() => this.props.dispatchLogin(this.state.login))
             .catch(() => {
                 this.setState({isErrorBlockVisible: true});
+                this.setState({isBtnLocked: false});
             });
     }
 
@@ -65,7 +68,7 @@ class Login extends Component {
                            id="pass"
                            placeholder="Password"/>
                 </div>
-                <button onClick={this.login} className="btn btn-primary">Submit</button>
+                <button onClick={this.login}  disabled={this.state.isBtnLocked} className="btn btn-primary">Submit</button>
             </form>
         );
     }
